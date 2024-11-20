@@ -9,12 +9,12 @@
 
 使用方法
 确保本机已安装以下工具：
-- PowerShell 5.0+ 或 PowerShell 7
+- PowerShell 7+
 - Docker Compose
 - Poetry
 运行脚本：
 ```powershell
-.\test_and_run.ps1 -Port 8080
+pwsh .\test_and_run.ps1 -Port 8080
 ```
 
 如果不指定 -Port，默认端口为 8000。
