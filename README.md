@@ -1,7 +1,24 @@
 # Demo
+## 推荐运行方式
+为了简化项目的运行流程，我们推荐使用脚本 test_and_run.ps1，该脚本可以自动完成以下任务：
 
+- 检查本地环境（MySQL 端口、docker-compose、Poetry）。
+- 如果 MySQL 未运行，启动 Docker 容器中的 MySQL 服务。
+- 自动安装依赖并配置虚拟环境。
+- 启动 Django 服务（默认监听端口为 8000，可通过参数自定义）。
+
+使用方法
+确保本机已安装以下工具：
+- PowerShell 5.0+ 或 PowerShell 7
+- Docker Compose
+- Poetry
+运行脚本：
+```powershell
+.\test_and_run.ps1 -Port 8080
+```
+
+如果不指定 -Port，默认端口为 8000。
 ## 项目结构
-
 - Demo（主项目)
 - api
 - venv
