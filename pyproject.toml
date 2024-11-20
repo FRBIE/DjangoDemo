@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "health-insight-system-demo"
+version = "0.1.0"
+description = ""
+authors = ["betasecond <nbdhc9039@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[[tool.poetry.source]]
+name = "foo"
+url = "https://pypi.example.org/simple/"
+priority = "supplemental"
+
+
+[[tool.poetry.source]]
+name = "tsinghua"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+priority = "primary"
