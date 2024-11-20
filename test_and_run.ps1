@@ -2,7 +2,15 @@
 param (
     [int]$Port = 8000  # 默认的 Django 服务端口号
 )
-
+# 注册退出事件，确保脚本退出时提醒用户停止 Django 服务
+$script:DjangoProcess = $null  # 保存 Django 服务的进程对象
+Register-EngineEvent -SourceIdentifier PowerShell.Exiting -Action {
+    if ($script:DjangoProcess) {
+        Write-Host "`n检测到脚本终止，请手动停止 Django 服务。" -ForegroundColor Yellow
+        Write-Host "建议运行以下命令停止服务：" -ForegroundColor Cyan
+        Write-Host "Stop-Process -Id $($script:DjangoProcess.Id) -Force"
+    }
+}
 # 检查本地是否有 3306 端口正在使用
 Write-Host "检查 3306 端口是否被占用..."
 $portInUse = netstat -ano | Select-String ":3306"
@@ -69,7 +77,10 @@ try {
 
     # 启动 Django 的开发服务器
     Write-Host "启动 Django 开发服务器，监听端口 $Port..."
-    poetry run python manage.py runserver 0.0.0.0:$Port
+    $script:DjangoProcess = Start-Process -FilePath "poetry" -ArgumentList "run python manage.py runserver 0.0.0.0:$Port" -PassThru
+    Write-Host "Django 服务已启动，运行在后台。" -ForegroundColor Green
+    Write-Host "按 Ctrl+C 终止脚本时，请记得手动停止 Django 服务。" -ForegroundColor Yellow
+    Wait-Process -Id $script:DjangoProcess.Id  # 等待 Django 进程结束
 } catch {
     Write-Host "执行 Django 管理命令时出错：" -ForegroundColor Red
     Write-Host $_.Exception.Message
