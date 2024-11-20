@@ -32,7 +32,7 @@ DATABASES = {
 # 安装 Poetry：
 pip install poetry
 # 安装项目依赖：
-poetry install
+poetry install --no-root
 # 激活虚拟环境：
 poetry shell
 
