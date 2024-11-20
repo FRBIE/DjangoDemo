@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: demo-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Xrp220903  # 数据库 root 用户密码
+      MYSQL_DATABASE: demo            # 默认创建的数据库名称
+    ports:
+      - "3306:3306"                   # 映射主机和容器的 3306 端口
+    volumes:
+      - mysql-data:/var/lib/mysql     # 持久化 MySQL 数据
+    command: --default-authentication-plugin=mysql_native_password
+
+volumes:
+  mysql-data:
